@@ -1,2 +1,2 @@
-# PDE
-Proyecto para visualizar piezas
+# crud-one
+CRUD con PHP y MySQL

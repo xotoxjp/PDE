@@ -1,0 +1,8 @@
+05-10-2016 se agrego la carpeta css
+05-10-2016 se renombro el anterior archivo index.php a inicio.php
+05-10-2016 se agrego el archivo index.html
+05-10-2016 se agrego carpeta images con el icono del la pagina de login
+05-10-2016 se agrego el archivo checklogin.php este procesa el ingreso
+05-10-2016 se agrego el archivo logout.php este procesa la salida <sin implementar>
+05-10-2016 se agrego el archivo registrar-usuario.php este procesa un nuevo usuario <sin implementar>
+05-10-2016 se agrego el archivo funciones.js este procesa interacciones en la pantalla de login

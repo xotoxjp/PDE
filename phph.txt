@@ -1,0 +1,38 @@
+<select name="estado" id="estado" >
+            <?php
+$result = $con->query($query2);
+            foreach($result as $m)
+            {
+            ?>
+        <option value="<?php echo $m['estado_nombre'];?>" <?php if($m['estado_nombre'] == $status) echo "selected";?> ><?php echo $m['estado_nombre'];?></option>
+            <?php
+      	    }
+        ?>
+        </select> 
+
+<!-- ESTE ANDA!!!
+<select name="estado" id="estado" >
+            <?php
+$result = $con->query($query2);
+            foreach($result as $m)
+            {
+            ?>
+                <option value="<?php echo $m['estado_nombre'];?>"><?php echo $m['estado_nombre'];?></option>
+            <?php
+            }
+        ?>
+        </select> 
+
+
+<select name="estado" id="estado" >
+<?php
+$result = $con->query($query2);
+foreach($result as $m){
+?>
+<option  <?php if ( $m['estado_nombre'] == $status ) echo 'selected' ; ?>  value= "  <?php echo $m['estado_nombre'];?>  "    >
+<?php echo $m['estado_nombre']; ?>
+</option>
+<?php
+}
+?>
+ </select>
