@@ -1,46 +1,15 @@
-<head>
-
-<link rel="shortcut icon" type="image/png" href="/media/images/favicon.png">
-	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
-	<link rel="stylesheet" type="text/css" href="/media/css/site-examples.css?_=b05357026107a2e3ca397f642d976192">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-	<style type="text/css" class="init">
-	
-	</style>
-	<script type="text/javascript" src="/media/js/site.js?_=fdce5da0aafc74f877db6a1772eccba9">
-	</script>
-	<script type="text/javascript" src="/media/js/dynamic.php?comments-page=examples%2Fbasic_init%2Falt_pagination.html" async>
-	</script>
-	<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.3.js">
-	</script>
-	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js">
-	</script>
-
-
-	</script>
-	<script type="text/javascript" language="javascript" src="../resources/demo.js">
-	</script>
-<script type="text/javascript" src="jquery.dataTables.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#example').dataTable( {
-            "language": {
-                "url": "/PDE/spanish/Spanish.json"
-            }
-        } );
-    } );
-</script>
-</head>
 <?php
+	include "database.php";
 
-include "conexion.php";
+	$user_id;
 
-$user_id=null;
-$sql1= "select * from equipo";
-$query = $con->query($sql1);
+	$sql1= "SELECT eq.id,eq.orden,eq.item,eq.tipo,eq.modelo,eq.serie,es.estado_nombre,eq.fecha,eq.comentario,eq.contrato,eq.razon_social,eq.direccion,eq.localidad,eq.digitacion 
+	FROM equipo as eq INNER JOIN estado as es ON eq.estado=es.estado_id";
+	$result = $conn->query($sql1);
+	$result ->execute();	
 ?>
 
-<?php if($query->num_rows>0):?>
+<?php if($row_count = $result->rowCount() > 0){  ?>
 
 <table id="example" class="table table-hover table-responsive">
 <thead>
@@ -59,16 +28,19 @@ $query = $con->query($sql1);
 	<th><font size=2>Localidad</th>
 	<th><font size=2>Fecha Digitacion</th>
 	<th></th>
-</tr>
+
 </thead>
-<?php while ($r=$query->fetch_array()):?>
+<?php 
+	$row = $result->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($row as $r){ 
+?>
 <tr>
 	<td><font size=1><?php echo $r["orden"]; ?></td>
 	<td><font size=1><?php echo $r["item"]; ?></td>
 	<td><font size=1><?php echo $r["tipo"]; ?></td>
 	<td><font size=1><?php echo $r["modelo"]; ?></td>
 	<td><font size=1><?php echo $r["serie"]; ?></td>
-	<td><font size=1><?php echo $r["estado"]; ?></td>
+	<td><font size=1><?php echo $r["estado_nombre"]; ?></td>
 	<td><font size=1><?php echo $r["fecha"]; ?></td>
 	<td><font size=1><?php echo $r["comentario"]; ?></td>
 	<td><font size=1><?php echo $r["cliente"]; ?></td>
@@ -79,26 +51,22 @@ $query = $con->query($sql1);
 	<td><font size=1><?php echo $r["digitacion"]; ?></td>
 	<td style="width:150px;">
 		<a href="./editar.php?id=<?php echo $r["id"];?>" class="btn btn-xs btn-danger">Editar</a>
-	<!--	<a href="#" id="del-<?php echo $r["id"];?>" class="btn btn-sm btn-danger">Eliminar</a> -->
+	<!--	<a href="#" id="del-<?/*php echo $r["id"];*/?>" class="btn btn-sm btn-danger">Eliminar</a> -->
 		<script>
-		$("#del-"+<?php echo $r["id"];?>).click(function(e){
-			e.preventDefault();
-			p = confirm("Estas seguro?");
-			if(p){
-				window.location="./php/eliminar.php?id="+<?php echo $r["id"];?>;
-
-			}
-
-		});
+			$("#del-"+<?php echo $r["id"];?>).click(function(e){
+				e.preventDefault();
+				p = confirm("Estas seguro?");
+				if(p){
+					window.location="./php/eliminar.php?id="+<?php echo $r["id"];?>;
+				}
+			});
 		</script>
 	</td>
 </tr>
-<?php endwhile;?>
-
-
+<?php }; ?>
 
 </table>
 
-<?php else:?>
+<?php } else { ?>
 	<p class="alert alert-warning">No hay resultados</p>
-<?php endif;?>
+<?php }; ?>

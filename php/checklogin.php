@@ -1,47 +1,35 @@
-/*
-rutina de log in 
-adaptada por Juan Pablo Soto (mas o menos)
-*/
 <?php
 	session_start();
 ?>
  
 <?php	 
-	$host_db = "localhost";
-	$user_db = "root";
-	$pass_db = "lamisma";
-	$db_name = "crud1";
-	$tbl_name = "usuarios";
-	 
-	$conexion = new mysqli($host_db, $user_db, $pass_db, $db_name);
-	 
-	if ($conexion->connect_error) {
-	 die("La conexion falló: " . $conexion->connect_error);
-	}
-	 
+	include "database.php";
+
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	  
-	$sql = "SELECT * FROM $tbl_name WHERE usuario = '$username'";
-	$result = $conexion->query($sql);	 
-
-	if ($result->num_rows > 0) {     	 
-	 $row = $result->fetch_array(MYSQLI_ASSOC);	 
-	}
+	//$sql = "SELECT * FROM :Tabla WHERE usuario = :Username";
+	$sql = "SELECT * FROM usuarios WHERE usuario = :Username";
+	$result = $conn->prepare($sql);	 
+	$result ->execute(array(':Username'=>$username));
 	
-	if ($password==$row['password']/*password_verify($password, $row['password'])*/) {
+
+	if ($row_count = $result->rowCount() > 0) {   
+		$resultado = $result->fetchAll(PDO::FETCH_ASSOC);
+		foreach ($resultado as $row) {
+    	    //echo $row["password"];
+	    }
+	}
+
+	if ($password==$row['password']) { 
 	    $_SESSION['loggedin'] = true;
 	    $_SESSION['username'] = $username;
-	    $_SESSION['start'] = time();
-	    $_SESSION['expire'] = $_SESSION['start'] + (5 * 60);
-	 
-	    //echo "Bienvenido! " . $_SESSION['username'];
-	    //echo "<br><br><a href=panel-control.php>Panel de Control</a>"; 
-		//echo "<br><br><a href=index.php>Panel de Control</a>";
+	    $_SESSION['start'] = time();// Taking now logged in time.
+        // Ending a session in 30 minutes from the starting time.
+	    $_SESSION['expire'] = $_SESSION['start'] + (0.1 * 60);
 		header("Location:../inicio.php"); 	 
 	} else { 
-	   echo "Username o Password estan incorrectos.";	 
-	   echo "<br><a href='../index.html'>Volver a Intentarlo</a>";
+       $message="Falló la Autenticación!!!";
+	   header("Location:../index.php?msg=$message");
 	}
- mysqli_close($conexion);
 ?>

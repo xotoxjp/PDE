@@ -6,3 +6,8 @@
 05-10-2016 se agrego el archivo logout.php este procesa la salida <sin implementar>
 05-10-2016 se agrego el archivo registrar-usuario.php este procesa un nuevo usuario <sin implementar>
 05-10-2016 se agrego el archivo funciones.js este procesa interacciones en la pantalla de login
+-----------------------------------------------------------------------------------------------------------------
+17-11-2016 se quitan los archivos: buscar.php
+17-11-2016 se quitan los archivos: php/agregar.php -- php/busqueda -- php/checklogin2.php -- php/checklogin-copia.php -- php/registrar-usuario.php -- php/updateDatabase.php
+17-11-2016 se agrega la carpeta de donde se lee el excel /inputData con el archivo: sheet1.xls (es importante que mantenga este nombre)
+17-11-2016 la carpeta Classes corresponde al plug-in "phptoExcel"

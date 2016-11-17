@@ -1,4 +1,7 @@
-body {
+/*******************************************
+		estilos para pantalla de login
+********************************************/
+.login {
     padding-top: 90px;
 }
 .panel-login {
@@ -96,4 +99,29 @@ body {
 	color: #fff;
 	background-color: #1CA347;
 	border-color: #1CA347;
+}
+
+/***************************************
+      estilos para tabla inicio.php
+****************************************/
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:bold;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-yw4l{vertical-align:top}
+
+/********************************
+	estilos para barra superior
+***********************************/
+.navbar {font-size:16px !important; 
+	    max-height: 0.5rem !important;}
+.principal { padding-top: 5rem; }
+
+@media (min-width: 1200px) {
+    .container{
+        max-width: 1300px;
+    }
+}
+
+#example_wrapper{
+	margin-top: -3rem;
 }
